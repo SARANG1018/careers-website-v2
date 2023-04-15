@@ -1,0 +1,3 @@
+Flask
+gunicorn
+# gunicorn is a productikn server for python
