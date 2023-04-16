@@ -1,22 +1,22 @@
 from sqlalchemy import create_engine, text
 
-db_connection_string="mysql+pymysql://sa434cqvri60mvsem832:pscale_pw_Y7pEggBnjeLt9hxUZwkWQooVS8YvmNRsbriDncazhOz@aws.connect.psdb.cloud/brightcareers?charset=utf8mb4"
+db_connection_string = "mysql+pymysql://sa434cqvri60mvsem832:pscale_pw_Y7pEggBnjeLt9hxUZwkWQooVS8YvmNRsbriDncazhOz@aws.connect.psdb.cloud/brightcareers?charset=utf8mb4"
 
 engine = create_engine(db_connection_string,
-                        connect_args={
-                            "ssl":{
-    "ssl_ca":"/etc/ssl/cert.pem"
-    
-                    }
-                        })
+        connect_args={
+        "ssl": {
+                    "ssl_ca": "/etc/ssl/cert.pem"
+                }
+                                })
 
 def load_jobs_from_db():
     with engine.connect() as conn:
-       result=conn.execute(text("select * from jobs"))
-    jobs=[]
-    for row in result.all(): 
-            jobs.append(dict(row))
-            return jobs
+        result = conn.execute(text("select * from jobs"))
+        jobs = []
+        for row in result.all():
+            jobs.append(row._asdict())
+        return jobs
+
 
     
     # print("type(result):",type(result))
